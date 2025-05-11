@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests -Dquarkus.package.type=uber-jar -B
 
 # ---------- RUNTIME ----------
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/target/*-runner.jar app.jar
 EXPOSE 8080
