@@ -1,5 +1,10 @@
-FROM eclipse-temurin:17-jdk
-COPY target/projeto-quarkus-1.0.0-SNAPSHOT.jar /app/app.jar
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN ./mvnw package -DskipTests
+
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/*-runner.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
