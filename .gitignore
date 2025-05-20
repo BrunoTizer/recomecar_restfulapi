@@ -36,6 +36,7 @@ nb-configuration.xml
 *.orig
 *.rej
 
+
 # Local environment
 .env
 
@@ -43,3 +44,5 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
+pom.xml
+.pom.xml
