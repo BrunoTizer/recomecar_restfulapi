@@ -31,6 +31,11 @@ public class VerificacaoEmailService {
         return dao.buscar(id);
     }
 
+    public VerificacaoEmail buscarPorCodigo(String codigo) {
+        return dao.buscarPorCodigo(codigo);
+    }
+
+
     public String atualizar(VerificacaoEmail v) {
         if (v.getIdVerificacao() <= 0) return "Erro: ID da verificação é obrigatório.";
         return dao.atualizar(v);

@@ -78,6 +78,32 @@ public class VerificacaoEmailDAO {
         return null;
     }
 
+    public VerificacaoEmail buscarPorCodigo(String codigo) {
+        String sql = "SELECT * FROM verificacaoemail WHERE codigo = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new VerificacaoEmail(
+                        rs.getInt("id_verificacao"),
+                        rs.getInt("id_usuario"),
+                        rs.getString("codigo"),
+                        rs.getTimestamp("criado_em"),
+                        rs.getTimestamp("expira_em"),
+                        rs.getString("usado")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar verificação por código: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+
+
+
     public String atualizar(VerificacaoEmail v) {
         String sql = "UPDATE verificacaoemail SET id_usuario = ?, codigo = ?, criado_em = ?, expira_em = ?, usado = ? WHERE id_verificacao = ?";
 

@@ -45,6 +45,16 @@ public class VerificacaoEmailResource {
         return Response.status(Response.Status.NOT_FOUND).entity("Verificação não encontrada.").build();
     }
 
+    @GET
+    @Path("/codigo/{codigo}")
+    public Response buscarPorCodigo(@PathParam("codigo") String codigo) {
+        VerificacaoEmail v = service.buscarPorCodigo(codigo);
+        if (v != null) {
+            return Response.ok(v).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).entity("Código inválido.").build();
+    }
+
     @PUT
     @Path("/{id}")
     public Response atualizar(@PathParam("id") int id, VerificacaoEmail v) {
