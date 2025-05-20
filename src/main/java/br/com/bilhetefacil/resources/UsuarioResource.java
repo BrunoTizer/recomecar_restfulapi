@@ -71,6 +71,15 @@ public class UsuarioResource {
         }
     }
 
+    @PUT
+    @Path("/{id}/faceid")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response atualizarFaceId(@PathParam("id") int id, String hash) {
+        String msg = usuarioService.atualizarFaceId(id, hash);
+        return Response.ok(msg).build();
+    }
+
+
     @DELETE
     @Path("/{id}")
     public Response deletarUsuario(@PathParam("id") int id) {

@@ -103,6 +103,20 @@ public class UsuarioDAO {
         }
     }
 
+    public String atualizarFaceId(int idUsuario, String faceIdHash) {
+        String sql = "UPDATE usuario SET face_id_hash = ? WHERE id_usuario = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, faceIdHash);
+            stmt.setInt(2, idUsuario);
+
+            int linhas = stmt.executeUpdate();
+            return (linhas > 0) ? "Face ID atualizado com sucesso!" : "Usuário não encontrado.";
+        } catch (SQLException e) {
+            return "Erro ao atualizar Face ID: " + e.getMessage();
+        }
+    }
+
+
 
     public String deletar(int id) {
         String sql = "DELETE FROM usuario WHERE id_usuario = ?";

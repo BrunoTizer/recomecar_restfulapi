@@ -55,6 +55,10 @@ public class UsuarioService {
         return usuarioDAO.atualizar(usuario);
     }
 
+    public String atualizarFaceId(int id, String faceIdHash) {
+        return usuarioDAO.atualizarFaceId(id, faceIdHash);
+    }
+
     public String deletarUsuario(int id) {
         return usuarioDAO.deletar(id);
     }
