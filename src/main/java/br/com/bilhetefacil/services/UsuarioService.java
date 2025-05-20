@@ -6,6 +6,7 @@ import br.com.bilhetefacil.model.Usuario;
 import java.sql.SQLException;
 
 import java.util.List;
+import java.sql.Timestamp;
 
 public class UsuarioService {
 
@@ -30,9 +31,11 @@ public class UsuarioService {
         }
 
         String status = usuario.getStatusPagamentoTaxa();
-        if (!status.equals("S") && !status.equals("N")) {
+        if (usuario.getStatusPagamentoTaxa() == null || (!usuario.getStatusPagamentoTaxa().equals("S") && !usuario.getStatusPagamentoTaxa().equals("N"))) {
             return "Erro: Status de pagamento da taxa deve ser 'S' ou 'N'.";
         }
+
+        usuario.setDataCadastro(new Timestamp(System.currentTimeMillis()));
 
         return usuarioDAO.inserir(usuario);
     }
