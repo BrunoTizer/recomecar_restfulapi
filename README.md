@@ -82,6 +82,8 @@ _(Detalhamento completo na próxima seção — cada endpoint listado com parâm
 
 ---
 
+# Endpoints da API
+
 # Endpoints de Acompanhamentos
 
 ## Criar um novo acompanhamento
@@ -741,7 +743,7 @@ Remove um pedido de ajuda pelo ID.
 
   - Body: mensagem de erro (string)
 
-  # Endpoints de Status de Acompanhamento
+# Endpoints de Status de Acompanhamento
 
 ## Criar um novo status de acompanhamento
 
