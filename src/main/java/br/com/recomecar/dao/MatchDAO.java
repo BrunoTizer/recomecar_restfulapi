@@ -16,6 +16,9 @@ public class MatchDAO {
     }
 
     public String inserir(Match match) {
+        int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
+        match.setId(idAleatorio);
+
         String sql = "INSERT INTO matches_recomecar (id_match, dt_match, oferta_ajuda_id, pedido_ajuda_id, status_match_id) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, match.getId());
@@ -29,6 +32,7 @@ public class MatchDAO {
             return "Erro ao cadastrar match: " + e.getMessage();
         }
     }
+
 
     public List<Match> listar() {
         List<Match> lista = new ArrayList<>();

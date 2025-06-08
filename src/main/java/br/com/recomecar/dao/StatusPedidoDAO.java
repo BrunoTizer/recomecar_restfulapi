@@ -17,6 +17,9 @@ public class StatusPedidoDAO {
     }
 
     public String inserir(StatusPedido statusPedido) {
+        int idAleatorio = (int) (Math.random() * 900_000) + 100_000;
+        statusPedido.setIdStatus(idAleatorio);
+
         String sql = "INSERT INTO status_pedido_recomecar (id_status, nome) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, statusPedido.getIdStatus());

@@ -19,9 +19,7 @@ public class OfertaAjudaService {
     }
 
     public String cadastrarOfertaAjuda(OfertaAjuda oferta) {
-        if (oferta.getId() == 0) {
-            throw new ValidacaoException("O ID da oferta é obrigatório.");
-        }
+
         if (oferta.getDescricao() == null || oferta.getDescricao().trim().isEmpty()) {
             throw new ValidacaoException("A descrição é obrigatória.");
         }

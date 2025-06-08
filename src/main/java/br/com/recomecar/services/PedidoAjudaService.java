@@ -19,9 +19,7 @@ public class PedidoAjudaService {
     }
 
     public String cadastrarPedidoAjuda(PedidoAjuda pedido) {
-        if (pedido.getId() == 0) {
-            throw new ValidacaoException("O ID do pedido de ajuda é obrigatório.");
-        }
+
         if (pedido.getDescricao() == null || pedido.getDescricao().trim().isEmpty()) {
             throw new ValidacaoException("A descrição é obrigatória.");
         }

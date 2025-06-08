@@ -17,9 +17,7 @@ public class MatchService {
     }
 
     public String cadastrarMatch(Match match) {
-        if (match.getId() == 0) {
-            throw new ValidacaoException("O ID do match é obrigatório.");
-        }
+
         if (match.getOfertaAjudaId() == 0) {
             throw new ValidacaoException("O ID da oferta de ajuda é obrigatório.");
         }

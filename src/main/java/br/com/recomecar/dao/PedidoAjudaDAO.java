@@ -16,6 +16,9 @@ public class PedidoAjudaDAO {
     }
 
     public String inserir(PedidoAjuda pedido) {
+        int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
+        pedido.setId(idAleatorio);
+
         String sql = "INSERT INTO pedidos_ajuda_recomecar (id_pedido_ajuda, descricao, prioridade, dt_pedido, usuario_id, categoria_id, status_pedido_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, pedido.getId());
@@ -31,6 +34,7 @@ public class PedidoAjudaDAO {
             return "Erro ao cadastrar pedido de ajuda: " + e.getMessage();
         }
     }
+
 
     public List<PedidoAjuda> listar() {
         List<PedidoAjuda> lista = new ArrayList<>();

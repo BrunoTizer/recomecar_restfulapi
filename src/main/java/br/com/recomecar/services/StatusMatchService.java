@@ -17,9 +17,7 @@ public class StatusMatchService {
     }
 
     public String cadastrarStatusMatch(StatusMatch statusMatch) {
-        if (statusMatch.getIdStatusMatch() == 0) {
-            throw new ValidacaoException("O ID do status do match é obrigatório.");
-        }
+
         if (statusMatch.getNome() == null || statusMatch.getNome().trim().isEmpty()) {
             throw new ValidacaoException("O nome do status do match é obrigatório.");
         }

@@ -16,6 +16,9 @@ public class AcompanhamentoDAO {
     }
 
     public String inserir(Acompanhamento acompanhamento) {
+        int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
+        acompanhamento.setId(idAleatorio);
+
         String sql = "INSERT INTO acompanhamentos_recomecar (id_acompanhamento, dt_status, observacao, status_acompanhamento_id, match_id) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, acompanhamento.getId());
@@ -29,6 +32,7 @@ public class AcompanhamentoDAO {
             return "Erro ao cadastrar acompanhamento: " + e.getMessage();
         }
     }
+
 
     public List<Acompanhamento> listar() {
         List<Acompanhamento> lista = new ArrayList<>();

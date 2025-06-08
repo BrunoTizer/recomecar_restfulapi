@@ -12,6 +12,9 @@ public class CategoriaDAO {
     }
 
     public String inserir(Categoria categoria) {
+        int idAleatorio = (int) (Math.random() * 900_000) + 100_000;
+        categoria.setIdCategoria(idAleatorio);
+
         String sql = "INSERT INTO categorias_recomecar (id_categoria, nome, descricao) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, categoria.getIdCategoria());
@@ -19,10 +22,11 @@ public class CategoriaDAO {
             stmt.setString(3, categoria.getDescricao());
             stmt.executeUpdate();
             return "Categoria cadastrada com sucesso!";
-    } catch (SQLException e) {
-        return "Erro ao cadastrar categoria: " + e.getMessage();
+        } catch (SQLException e) {
+            return "Erro ao cadastrar categoria: " + e.getMessage();
+        }
     }
-}
+
     public List<Categoria> listar() {
         List<Categoria> lista = new ArrayList<>();
         String sql = "SELECT * FROM categorias_recomecar";

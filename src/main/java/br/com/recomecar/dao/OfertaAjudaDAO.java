@@ -16,6 +16,9 @@ public class OfertaAjudaDAO {
     }
 
     public String inserir(OfertaAjuda oferta) {
+        int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
+        oferta.setId(idAleatorio);
+
         String sql = "INSERT INTO ofertas_ajuda_recomecar (id_oferta_ajuda, descricao, dt_oferta, usuario_id, status_pedido_id, categoria_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, oferta.getId());
@@ -30,6 +33,7 @@ public class OfertaAjudaDAO {
             return "Erro ao cadastrar oferta de ajuda: " + e.getMessage();
         }
     }
+
 
     public List<OfertaAjuda> listar() {
         List<OfertaAjuda> lista = new ArrayList<>();

@@ -16,6 +16,9 @@ public class StatusMatchDAO {
     }
 
     public String inserir(StatusMatch statusMatch) {
+        int idAleatorio = (int) (Math.random() * 900_000) + 100_000;
+        statusMatch.setIdStatusMatch(idAleatorio);
+
         String sql = "INSERT INTO status_match_recomecar (id_status_match, nome) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, statusMatch.getIdStatusMatch());
@@ -26,6 +29,7 @@ public class StatusMatchDAO {
             return "Erro ao cadastrar status do match: " + e.getMessage();
         }
     }
+
 
     public List<StatusMatch> listar() {
         List<StatusMatch> lista = new ArrayList<>();

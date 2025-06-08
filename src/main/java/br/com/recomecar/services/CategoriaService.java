@@ -17,9 +17,7 @@ public class CategoriaService {
     }
 
     public String cadastrarCategoria(Categoria categoria) {
-        if (categoria.getIdCategoria() == 0) {
-            throw new ValidacaoException("O ID da categoria é obrigatório.");
-        }
+
         if (categoria.getNome() == null || categoria.getNome().trim().isEmpty()) {
             throw new ValidacaoException("O nome da categoria é obrigatório.");
         }

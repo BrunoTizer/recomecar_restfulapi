@@ -17,9 +17,7 @@ public class AcompanhamentoService {
     }
 
     public String cadastrarAcompanhamento(Acompanhamento acompanhamento) {
-        if (acompanhamento.getId() == 0) {
-            throw new ValidacaoException("O ID do acompanhamento é obrigatório.");
-        }
+
         if (acompanhamento.getStatusAcompanhamentoId() == 0) {
             throw new ValidacaoException("O ID do status de acompanhamento é obrigatório.");
         }

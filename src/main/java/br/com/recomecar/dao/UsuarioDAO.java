@@ -20,6 +20,9 @@ public class UsuarioDAO {
 
 
     public String inserir(Usuario usuario) {
+        int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
+        usuario.setIdUsuario(idAleatorio);
+
         String sql = "INSERT INTO usuarios_recomecar (id_usuario, nome, email, telefone, senha, tipo, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, usuario.getIdUsuario());
@@ -35,6 +38,7 @@ public class UsuarioDAO {
             return "Erro ao cadastrar usuário: " + e.getMessage();
         }
     }
+
 
     public List<Usuario> listar() {
         List<Usuario> lista = new ArrayList<>();

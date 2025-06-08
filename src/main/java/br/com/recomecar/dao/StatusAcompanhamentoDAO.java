@@ -16,6 +16,9 @@ public class StatusAcompanhamentoDAO {
     }
 
     public String inserir(StatusAcompanhamento status) {
+        int idAleatorio = (int) (Math.random() * 900_000) + 100_000;
+        status.setIdStatusAcompanhamento(idAleatorio);
+
         String sql = "INSERT INTO status_acompanhamento_recomecar (id_status_acompanhamento, nome) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, status.getIdStatusAcompanhamento());

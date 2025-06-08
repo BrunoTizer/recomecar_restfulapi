@@ -21,9 +21,7 @@ public class UsuarioService {
     }
 
     public String cadastrarUsuario(Usuario usuario) {
-        if (usuario.getIdUsuario() == 0) {
-            throw new ValidacaoException("O ID do usuário é obrigatório.");
-        }
+
         if (usuario.getNome() == null || usuario.getNome().trim().isEmpty()) {
             throw new ValidacaoException("O nome é obrigatório.");
         }

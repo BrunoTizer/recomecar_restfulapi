@@ -18,9 +18,7 @@ public class StatusPedidoService {
     }
 
     public String cadastrarStatusPedido(StatusPedido statusPedido) {
-        if (statusPedido.getIdStatus() == 0) {
-            throw new ValidacaoException("O ID do status é obrigatório.");
-        }
+
         if (statusPedido.getNome() == null || statusPedido.getNome().trim().isEmpty()) {
             throw new ValidacaoException("O nome do status é obrigatório.");
         }
