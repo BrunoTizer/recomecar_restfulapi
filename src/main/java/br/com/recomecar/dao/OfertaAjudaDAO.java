@@ -19,6 +19,11 @@ public class OfertaAjudaDAO {
         int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
         oferta.setId(idAleatorio);
 
+        if (oferta.getDataOferta() == null) {
+            java.sql.Date dataAtual = new java.sql.Date(System.currentTimeMillis());
+            oferta.setDataOferta(dataAtual);
+        }
+
         String sql = "INSERT INTO ofertas_ajuda_recomecar (id_oferta_ajuda, descricao, dt_oferta, usuario_id, status_pedido_id, categoria_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, oferta.getId());

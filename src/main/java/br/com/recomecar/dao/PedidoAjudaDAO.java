@@ -19,6 +19,11 @@ public class PedidoAjudaDAO {
         int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
         pedido.setId(idAleatorio);
 
+        if (pedido.getDataPedido() == null) {
+            java.sql.Date dataAtual = new java.sql.Date(System.currentTimeMillis());
+            pedido.setDataPedido(dataAtual);
+        }
+
         String sql = "INSERT INTO pedidos_ajuda_recomecar (id_pedido_ajuda, descricao, prioridade, dt_pedido, usuario_id, categoria_id, status_pedido_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, pedido.getId());

@@ -19,6 +19,11 @@ public class MatchDAO {
         int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
         match.setId(idAleatorio);
 
+        if (match.getDataMatch() == null) {
+            java.sql.Date dataAtual = new java.sql.Date(System.currentTimeMillis());
+            match.setDataMatch(dataAtual);
+        }
+
         String sql = "INSERT INTO matches_recomecar (id_match, dt_match, oferta_ajuda_id, pedido_ajuda_id, status_match_id) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, match.getId());
