@@ -9,12 +9,6 @@ import java.util.List;
 
 public class OfertaAjudaDAO {
 
-    private Connection conexao;
-
-    public OfertaAjudaDAO() throws SQLException, ClassNotFoundException {
-        this.conexao = new ConexaoFactory().conexao();
-    }
-
     public String inserir(OfertaAjuda oferta) {
         int idAleatorio = (int) (Math.random() * 9_000_000) + 1_000_000;
         oferta.setId(idAleatorio);
@@ -25,7 +19,10 @@ public class OfertaAjudaDAO {
         }
 
         String sql = "INSERT INTO ofertas_ajuda_recomecar (id_oferta_ajuda, descricao, dt_oferta, usuario_id, status_pedido_id, categoria_id) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (
+                Connection conexao = new ConexaoFactory().conexao();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
             stmt.setInt(1, oferta.getId());
             stmt.setString(2, oferta.getDescricao());
             stmt.setDate(3, oferta.getDataOferta());
@@ -34,17 +31,19 @@ public class OfertaAjudaDAO {
             stmt.setInt(6, oferta.getCategoriaId());
             stmt.executeUpdate();
             return "Oferta de ajuda cadastrada com sucesso!";
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             return "Erro ao cadastrar oferta de ajuda: " + e.getMessage();
         }
     }
 
-
     public List<OfertaAjuda> listar() {
         List<OfertaAjuda> lista = new ArrayList<>();
         String sql = "SELECT * FROM ofertas_ajuda_recomecar";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (
+                Connection conexao = new ConexaoFactory().conexao();
+                PreparedStatement stmt = conexao.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
             while (rs.next()) {
                 OfertaAjuda oferta = new OfertaAjuda();
                 oferta.setId(rs.getInt("id_oferta_ajuda"));
@@ -55,7 +54,7 @@ public class OfertaAjudaDAO {
                 oferta.setCategoriaId(rs.getInt("categoria_id"));
                 lista.add(oferta);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Erro ao listar ofertas de ajuda: " + e.getMessage());
         }
         return lista;
@@ -63,7 +62,10 @@ public class OfertaAjudaDAO {
 
     public OfertaAjuda buscar(int id) {
         String sql = "SELECT * FROM ofertas_ajuda_recomecar WHERE id_oferta_ajuda = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (
+                Connection conexao = new ConexaoFactory().conexao();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -76,7 +78,7 @@ public class OfertaAjudaDAO {
                 oferta.setCategoriaId(rs.getInt("categoria_id"));
                 return oferta;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Erro ao buscar oferta de ajuda: " + e.getMessage());
         }
         return null;
@@ -84,7 +86,10 @@ public class OfertaAjudaDAO {
 
     public String atualizar(OfertaAjuda oferta) {
         String sql = "UPDATE ofertas_ajuda_recomecar SET descricao = ?, dt_oferta = ?, usuario_id = ?, status_pedido_id = ?, categoria_id = ? WHERE id_oferta_ajuda = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (
+                Connection conexao = new ConexaoFactory().conexao();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
             stmt.setString(1, oferta.getDescricao());
             stmt.setDate(2, oferta.getDataOferta());
             stmt.setInt(3, oferta.getUsuarioId());
@@ -93,18 +98,21 @@ public class OfertaAjudaDAO {
             stmt.setInt(6, oferta.getId());
             int linhasAfetadas = stmt.executeUpdate();
             return (linhasAfetadas > 0) ? "Oferta de ajuda atualizada com sucesso!" : "Oferta de ajuda não encontrada.";
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             return "Erro ao atualizar oferta de ajuda: " + e.getMessage();
         }
     }
 
     public String deletar(int id) {
         String sql = "DELETE FROM ofertas_ajuda_recomecar WHERE id_oferta_ajuda = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (
+                Connection conexao = new ConexaoFactory().conexao();
+                PreparedStatement stmt = conexao.prepareStatement(sql)
+        ) {
             stmt.setInt(1, id);
             int linhasAfetadas = stmt.executeUpdate();
             return (linhasAfetadas > 0) ? "Oferta de ajuda deletada com sucesso!" : "Oferta de ajuda não encontrada.";
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             return "Erro ao deletar oferta de ajuda: " + e.getMessage();
         }
     }
